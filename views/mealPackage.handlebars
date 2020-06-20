@@ -1,0 +1,67 @@
+<div class="hero-image3">
+  <div class="hero-text">
+    <h1 style="font-size:50px">Our Meal Packages</h1>
+  </div>
+</div>
+<section>
+  <div class="hero-text3">
+<h1 style="font-size:24px">Simply Choose A Package And Pick Your Meals!</h1>
+  </div>
+  </section>
+  <br></br>
+    <br></br>
+<section class="products">
+<div class="product-grid-container">
+    {{#each packages}}
+    <div class="product-card2">
+     <figure>
+       <div class="product-image2">
+      <a href="">
+      <img src="{{this.source}}" alt="{{this.title}}">
+    </div>
+    <div class="product-info">
+      <figcaption>
+      <h5>{{this.title}}</h5>
+      </a>
+      <h6>{{this.Synopsis}}</h6>
+      </figcaption>
+      </div>
+      </figure>
+      </div>
+ {{/each}}
+</div>
+</section>
+ <!--
+ <nav class="product-filter">
+  <h1>Meals</h1>
+  <div class="sort">
+    <div class="collection-sort">
+      <label>Filter by:</label>
+      <select>
+        <option value="/">All Meals</option>
+      </select>
+    </div>
+    <div class="collection-sort">
+      <label>Sort by:</label>
+      <select>
+        <option value="/">Featured</option>
+      </select>
+    </div>
+
+  </div>
+
+</nav>
+ <section class="products">
+ {{#each meals}}
+  <div class="product-card">
+    <div class="product-image"> 
+      <img src="{{this.source}}" alt="{{this.title}}">
+    </div>
+    <div class="product-info">
+      <h5>{{this.title}}</h5>
+      <h6>{{this.price}}</h6>
+    </div>
+  </div>
+{{/each}}
+</section>
+-->

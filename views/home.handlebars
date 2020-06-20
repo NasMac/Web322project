@@ -1,0 +1,91 @@
+<div class="hero-image">
+  <div class="hero-text">
+    <h1 style="font-size:50px">Food Straight To Your Door</h1>
+    <button>View Packages</button>
+  </div>
+</div>
+<!-- Content Section -->
+<section>
+  <div class="main-cards">
+  <div class="card">
+  <img src="img/meal5.png" alt="meal2" width="50%" height="50%">
+  </div>
+  <div class="card">
+    <h1 class="eetitle">Choose Your Meals</h1>
+<p class="eetext">Our chef-designed recipes include balanced Mediterranean meals, 
+  quick one-pan dinners, and top-rated customer favorites.</p>
+</div>
+</div>
+
+  <div class="main-cards">
+<div class="card">
+<h1 class="eetitle">Unpack your box</h1>
+<p class="eetext">We guarantee the freshness of all our ingredients and deliver them in an insulated box right to your door.</p>
+</div>
+<div class="card">
+    <img src="img/truck2.png" alt="truck" width="" height="">
+</div>
+  </div>
+
+<div class="main-cards">
+ <div class="card">
+  <img src="img/meal3.webp" alt="meal3" width="" height="">
+  </div>
+  <div class="card">
+<h1 class="eetitle">Create magic</h1>
+<p class="eetext">Following our step-by-step instructions you’ll experience the magic of cooking 
+  recipes that our chefs create with your family’s tastes in mind.</p>
+  </div>
+  </div>
+</section>
+<div class="hero-image2">
+  <div class="hero-text">
+    <h1 style="font-size:50px">Quality Guaranteed</h1>
+    <p>Sourced From Family-Owned Local Farms</p>
+  </div>
+</div>
+<section>
+  <div class="hero-text2">
+<h1 style="font-size:50px">Most Popular Picks</h1>
+<p>A Selection Of Our Most Loved Meals</p>
+  </div>
+  </section>
+  
+<!--Top Selection -->
+<section class="products">
+  <div class="product-grid-container">
+    {{#each meals}}
+    <div class="product-card">
+     <figure>
+       <div class="product-image">
+      <a href="">
+      <img src="{{this.source}}" alt="{{this.title}}">
+    </div>
+    <div class="product-info">
+      <figcaption>
+      <h5>{{this.title}}</h5>
+      </a>
+      <h6>{{this.price}}</h6>
+      </figcaption>
+      </div>
+      </figure>
+      </div>
+ {{/each}}
+</div>
+<!--
+ {{#each meals}}
+  <div class="product-card">
+    <div class="product-image"> 
+      <a href="">
+      <img src="{{this.source}}" alt="{{this.title}}">
+    </div>
+    <div class="product-info">
+      <h5>{{this.title}}</h5>
+      </a>
+      <h6>{{this.price}}</h6>
+    </div>
+     {{/each}}
+  </div>
+</div>
+-->
+</section>
