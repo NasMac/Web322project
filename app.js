@@ -94,7 +94,7 @@ function password_Validate(str) {
     return pattern.test(str);
 }
 //failed validation
-   //if (errorMessage_email.length > 1 || errorMessage_name.length > 1 || errorMessage_password.length > 1 || errorMessage_password2.length >1){
+   if (errorMessage_email.length > 1 || errorMessage_name.length > 1 || errorMessage_password.length > 1 || errorMessage_password2.length >1){
         res.render('registration', {
             layout: false,
             title:"Registration failed",
@@ -107,7 +107,7 @@ function password_Validate(str) {
             password: req.body.password,
             password2: req.body.password2
         });
-//}
+}
 
  if(errorMessage_name.length == 0 && errorMessage_email.length == 0 && errorMessage_password.length == 0 && errorMessage_password2.length == 0)
             {
@@ -146,10 +146,25 @@ app.get("/login",(req,res)=>{
 
 });
 app.post("/login",(req,res)=>{
+
+    const errorMessage_email=[];
+    const errorMessage_password=[];
+
+    if(req.body.password == ""){
+        errorMessage_password.push('*Enter password');
+    }
+    if(req.body.email == "") {
+        errorMessage_email.push('*Enter an email address');
+    }
+if(errorMessage_email.length > 1 || errorMessage_password.length > 1)
+{
     res.render('login', {
         layout: false,
-        title:"login"
+        title:"login",
+        e_Email: errorMessage_email,
+        e_Password: errorMessage_password
     });
+}
 
 });
 

@@ -15,7 +15,9 @@
     <form name="login" id="loginform" method="POST" action="/login">
     <h1>Log In</h1>
     <input type="text" name="email" placeholder="E-mail" />
+    <p class="error">{{this.e_Email}}</p>
     <input type="password" name="password" placeholder="Password" />
+    <p class="error">{{this.e_Password}}</p>
     <input type="submit" name="signup_submit" value="LOG IN" />
 </form>
   </div>

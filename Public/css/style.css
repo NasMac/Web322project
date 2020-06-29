@@ -618,7 +618,7 @@ button.social-signin.google {
 @media (max-width: 1199px) {
   .ct-footer-list > li {
     display: inline-block;
-    float: left;
+  /*float: left;*/
   }
 }
 @media (min-width:992px) {
