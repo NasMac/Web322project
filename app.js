@@ -14,6 +14,8 @@ app.use(express.static("model"));
 
 const mealModel = require("./model/meals");
 
+require('dotenv').config({path:"./config/sendgrid.env"});
+
 //Creates a 'NavLink' function that makes it easier to creates hyperlink anchors for navigation lists(see main.handlebars for implementation)
 //app.engine(".handlebars",exphbs());
 app.engine('.handlebars', exphbs({
@@ -118,10 +120,10 @@ function password_Validate(str) {
                             password: req.body.password
                         };
                 const sgMail = require('@sendgrid/mail');
-                sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
+                sgMail.setApiKey(process.env.SG.SEND_GRID_KEY);
                 const msg = {
-                    to: `${newUser.email}`,
-                    from: `nmachado@myseneca.ca`,
+                    to: `test@example.com`,
+                    from: `test@example.com`,
                     subject: `Welcome to FoodNow!`,
                     html:
                        `<strong>${newUser.username} <br>
@@ -131,8 +133,11 @@ function password_Validate(str) {
                 };
                     sgMail.send(msg)
                     .then(() => {
-                        res.redirect("/home");
+                        res.redirect("home");
                     })
+                    .catch(err => {
+                        console.log(`Error ${err}`);
+                    });        
                     }
                                       
 });
@@ -179,8 +184,14 @@ app.get("/mealPackage",(req,res)=>{
 
 });
 
-
 const HTTP_PORT = process.env.PORT || 3000;
 app.listen(HTTP_PORT,()=>{
     console.log(`Web Server Started`+HTTP_PORT);
 });
+//testing
+/*
+const port = process.env.PORT || 8080;
+server.listen(port, () => {
+    console.log(`Listening on http://localhost:${port}/`);
+  });
+  */
