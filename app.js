@@ -109,7 +109,7 @@ function password_Validate(str) {
         });
 }
 
- if(errorMessage_name.length == 0 && errorMessage_email.length == 0 && errorMessage_password.length == 0 && errorMessage_password2.length == 0)
+ else if(errorMessage_name.length == 0 && errorMessage_email.length == 0 && errorMessage_password.length == 0 && errorMessage_password2.length == 0)
             {
                         const newUser =
                         {
@@ -121,7 +121,7 @@ function password_Validate(str) {
                 sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
                 const msg = {
                     to: `${newUser.email}`,
-                    from: `@gmail.com`,
+                    from: `nmachado@myseneca.ca`,
                     subject: `Welcome to FoodNow!`,
                     html:
                        `<strong>${newUser.username} <br>
