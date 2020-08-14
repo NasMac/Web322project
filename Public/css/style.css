@@ -599,6 +599,26 @@ button.social-signin.twitter {
 button.social-signin.google {
   background: #DD4B39;
 }
+/*User Dashboard */
+.Dashcard {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.Dashtitle {
+  color: grey;
+  font-size: 18px;
+}
+
+.card a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
 /* Media Queries */
 /*reponsive design */
 @media (min-width:1200px) {
