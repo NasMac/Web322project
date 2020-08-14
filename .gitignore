@@ -1,4 +1,4 @@
-config/sendgrid.env
+config/keys.env
 node_modules
 node_modules/.bin/semver
 node_modules/.bin/semver.cmd
