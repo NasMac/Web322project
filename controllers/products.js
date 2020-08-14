@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const mealModel = require("./model/meals");
+const mealModel = require("../model/meals");
 
 router.get("/mealPackage",(req,res)=>{
 
@@ -11,3 +11,5 @@ router.get("/mealPackage",(req,res)=>{
     });
 
 });
+
+module.exports = router;

@@ -10,3 +10,4 @@ router.get("/",(req, res)=>{
         meals :mealModel.getBestMeals()
     });
 });
+module.exports=router;

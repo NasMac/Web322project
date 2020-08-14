@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router();
+const userModel = require("../model/User");
+const bcrypt = require("bcryptjs");
 
 router.get("/",(req,res)=>{
     if(req.session.user)
@@ -10,12 +12,13 @@ router.get("/",(req,res)=>{
     {
         res.render("registration",{
             title:"Registration",
+            layout: false
         });
     }
     
 });
 
-    router.post("/registration",(req,res)=>{
+    router.post("/",(req,res)=>{
     //Validation
     const errorMessage_name=[];
     const errorMessage_email=[];
@@ -34,21 +37,19 @@ router.get("/",(req,res)=>{
      {
         errorMessage_password.push('*Enter password');
     }
+    
     else
     {
-        if(req.body.password.length < 6|| req.body.passWord.length > 16)
+        if(req.body.password.length < 6 || req.body.password.length > 20)
         {
-            errorMessage_password.push('*Password must be betweem 6 to 16 characters long');
-        }
-        else if(req.body.password.length > 20)
-        {
-            errorMessage_email.push('*password must not contain more than 20 characters')
+            errorMessage_password.push('*Password must be betweem 6 to 20 characters long');
         }
         else if(password_Validate(req.body.password)==false)
         {
             errorMessage_password.push('*Password should must have letters and numbers only!');
         } 
     }
+    
 
     if(req.body.password2 == "")
     {
@@ -61,10 +62,26 @@ router.get("/",(req,res)=>{
 
 //password regex
 function password_Validate(str) {
-    const pattern = new RegExp(/^[0-9a-zA-Z]+$/);
+    const pattern = new RegExp(/^[0-9a-zA-Z]{6,20}$/);
     return pattern.test(str);
 }
 //failed validation
+userModel.findOne({ Eemail: req.body.email })
+    .then((user)=>{
+        if(user!=null){
+            errorMessage_email.push("*Email already registered");
+            res.render("registration", {
+                title: "Registration",
+                layout: false,
+                e_Name: errorMessage_name,
+                e_Email: errorMessage_email,
+                e_Password: errorMessage_password,
+                e_Password2: errorMessage_password2,
+                username: req.body.username,
+                email: req.body.email
+            });  
+        }
+        else{
   if (errorMessage_email.length > 0 || errorMessage_name.length > 0 || errorMessage_password.length > 0 || errorMessage_password2.length >0)
   {
         res.render('registration', {
@@ -79,57 +96,54 @@ function password_Validate(str) {
             password: req.body.password,
             password2: req.body.password2
         });
-}
-
-  else
-  {
-    userModel.findOne({ email: req.body.email })
-    .then((user)=>{
-        if(user==null){
-                        const newUser =
-                        {
-                            Name: req.body.username,
-                            email: req.body.email,
-                            password: req.body.password
-                        }; 
-                        const user = new userModel(newUser);
+}     
+else{       
+    const newUser =
+    {
+        userName: req.body.username,
+        Eemail: req.body.email,
+        Ppassword: req.body.password
+    }
+    const user = new userModel(newUser);
+    console.log(newUser.email);  
+    user.save()  
+    .then(()=>{        
                 const sgMail = require('@sendgrid/mail');
                 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
                 const msg = {
-                    to: `test@example.com`,
-                    from: `test@example.com`,
+                    to: `${newUser.email}`,
+                    from: `naseemmachado@gmail.com`,
                     subject: `Welcome to FoodNow!`,
                     html:
-                       `<strong>${newUser.username} <br>
-                    Vistor's Email Address ${newUser.email} <br>
-                    Welcome to FoodNow. Your have successfully signed up!<br></strong>
-                   `,
+                       `<strong>Wekcome ${newUser.username}! <br>
+                    Welcome to FoodNow. Your have successfully signed up!<br></strong>`,
                 };
-                user.save()
-                .then(() => {
                     sgMail.send(msg)
                     .then(() => {
                         console.log(user);
-                        req.session.userInfo = user;
+                        req.session.user = user;
+                    }) 
+                    .catch(err => {
+                        console.log(`Error ${err}`);
+                    }); 
+                        if(req.session.user.isDataClerk){
+                            res.render('clerkDashboard',{
+                                title:"clerkdashboard",
+                                packages: mealModel.getAllPackages(),
+                                meals :mealModel.getBestMeals()
+                            });
+                        }
+                        else{
+                            res.render('dashboard',{
+                                title:"dashboard"
+                            });
+                        }              
+                    })
+            .catch(err=>console.log(`Error checking for email in database ${err}`));
+     }  
+    } 
+    })
 
-                        res.redirect("/home");
-                    })     
-                })
-                }   
-                else{
-                    errorMessage_email.push("*Email already registered");
-                    res.render("registration", {
-                        title: "Registration",
-                        e_Name: errorMessage_name,
-                        e_Email: errorMessage_email,
-                        e_Password: errorMessage_password,
-                        e_Password2: errorMessage_password2,
-                        username: req.body.username,
-                        email: req.body.email,
-                        password: req.body.password,
-                        password2: req.body.password2
-                    });   
-                }    
-            })
-        }             
 });
+
+module.exports = router;
